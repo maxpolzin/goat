@@ -31,15 +31,6 @@ services:
     network_mode: "host"
     command: ros2 run ros_ina220 ros_ina220_publisher
 
-  ros-winch-control:
-    image: ghcr.io/rosblox/ros-winch-control:humble
-    volumes:
-      - /dev/input:/dev/input
-    privileged: true
-    restart: always
-    network_mode: "host"
-    command: ros2 launch winch_control noodle.launch.py
-
   ros-pca9685-ros2-control:
     image: ghcr.io/rosblox/ros-pca9685-ros2-control:humble
     devices:
@@ -48,4 +39,22 @@ services:
     network_mode: "host"
     command: ros2 launch pca9685_ros2_control_example mixed_example.launch.py
 
+  ros-joy-linux:
+    image: ghcr.io/rosblox/ros-joy-linux:humble
+    volumes:
+      - /dev/input:/dev/input
+    privileged: true
+    restart: always
+    network_mode: "host"
+    command: ros2 run joy_linux joy_linux_node
+
+
+  ros-winch-control:
+    image: ghcr.io/rosblox/ros-winch-control:humble
+    volumes:
+      - /dev/input:/dev/input
+    privileged: true
+    restart: always
+    network_mode: "host"
+    command: ros2 launch winch_control noodle.launch.py
 
