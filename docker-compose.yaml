@@ -41,6 +41,8 @@ services:
     image: ghcr.io/rosblox/ros-pca9685-ros2-control:humble
     devices:
       - "/dev/i2c-1:/dev/i2c-1"
+    volumes:
+      - ./pca9685_ros2_control/mixed_controller.yaml:/colcon_ws/src/pca9685_ros2_control/pca9685_ros2_control_example/config/mixed_controller.yaml    
     restart: always
     network_mode: "host"
     command: ros2 launch pca9685_ros2_control_example mixed_example.launch.py
@@ -54,6 +56,18 @@ services:
     network_mode: "host"
     command: ros2 run joy_linux joy_linux_node
 
+  rtklib:
+    image: ghcr.io/rosblox/rtklib:latest
+    restart: always
+    command: str2str -in ntrip://$NTRIP_USER:$NTRIP_PASSWORD@www.swipos.ch:2101/MSM_GISGEO_LV95LHN95 -b 1 -out tcpcli://192.168.60.1:6666
+
+  ros-septentrio-gnss-driver:
+    image: ghcr.io/rosblox/ros-septentrio-gnss-driver:humble
+    volumes:
+      - ./septentrio_gnss_driver/rover_node.yaml:/opt/ros/humble/share/septentrio_gnss_driver/config/rover_node.yaml
+    restart: always
+    network_mode: "host"
+    command: ros2 launch septentrio_gnss_driver rover_node.py
 
   ros-winch-control:
     image: ghcr.io/rosblox/ros-winch-control:humble
