@@ -31,6 +31,12 @@ services:
     network_mode: "host"
     command: ros2 run ros_ina220 ros_ina220_publisher
 
+  ros-cpu-temperature:
+    image: ghcr.io/rosblox/ros-cpu-temperature:humble
+    restart: always
+    network_mode: "host"
+    command: ros2 run ros_cpu_temperature ros_cpu_temperature_publisher
+
   ros-pca9685-ros2-control:
     image: ghcr.io/rosblox/ros-pca9685-ros2-control:humble
     devices:
@@ -57,4 +63,3 @@ services:
     restart: always
     network_mode: "host"
     command: ros2 launch winch_control noodle.launch.py
-
