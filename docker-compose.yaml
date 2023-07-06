@@ -16,12 +16,12 @@ services:
       - 8080:8080
     restart: always
 
-  ros-rosbridge-suite:
-    image: ghcr.io/rosblox/ros-rosbridge-suite:humble
-    ports:
-      - 9090:9090
-    restart: always
-    command: ros2 launch rosbridge_server rosbridge_websocket_launch.xml
+#  ros-rosbridge-suite:
+#    image: ghcr.io/rosblox/ros-rosbridge-suite:humble
+#    ports:
+#      - 9090:9090
+#    restart: always
+#    command: ros2 launch rosbridge_server rosbridge_websocket_launch.xml
 
   ros-ina220:
     image: ghcr.io/rosblox/ros-ina220:humble
@@ -77,3 +77,20 @@ services:
     restart: always
     network_mode: "host"
     command: ros2 launch winch_control noodle.launch.py
+
+
+  ros-imu-tools:
+    image: ghcr.io/rosblox/ros-imu-tools:humble
+    volumes:
+      - ./imu_filter_madgwick/imu_filter.launch.py:/opt/ros/humble/share/imu_filter_madgwick/launch/imu_filter.launch.py
+      - ./imu_filter_madgwick/imu_filter.yaml:/opt/ros/humble/share/imu_filter_madgwick/config/imu_filter.yaml
+    network_mode: "host"
+    restart: always
+    command: ros2 launch imu_filter_madgwick imu_filter.launch.py
+
+  ros-lsm6dsox-lis3mdl:
+    image: ghcr.io/rosblox/ros-lsm6dsox-lis3mdl:humble
+    devices:
+      - "/dev/i2c-3:/dev/i2c-1"
+    restart: always
+    command: ros2 run ros_lsm6dsox_lis3mdl ros_lsm6dsox_lis3mdl_publisher
