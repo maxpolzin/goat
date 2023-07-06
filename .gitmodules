@@ -1,0 +1,3 @@
+[submodule "ros-winch-control"]
+	path = ros-winch-control
+	url = https://www.github.com/maxpolzin/ros-winch-control
