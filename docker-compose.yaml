@@ -94,3 +94,20 @@ services:
       - "/dev/i2c-3:/dev/i2c-1"
     restart: always
     command: ros2 run ros_lsm6dsox_lis3mdl ros_lsm6dsox_lis3mdl_publisher
+
+
+  ros-as5048b_1:
+    image: ghcr.io/rosblox/ros-as5048b:humble
+    restart: always
+    devices:
+      - /dev/i2c-1:/dev/i2c-1
+    network_mode: "host"
+    command: ros2 run ros_as5048b ros_as5048b_publisher --ros-args -p i2c_device:=1 -p i2c_address:=0x42
+
+  ros-as5048b_2:
+    image: ghcr.io/rosblox/ros-as5048b:humble
+    restart: always
+    devices:
+      - /dev/i2c-1:/dev/i2c-1
+    network_mode: "host"
+    command: ros2 run ros_as5048b ros_as5048b_publisher --ros-args -p i2c_device:=1 -p i2c_address:=0x44
