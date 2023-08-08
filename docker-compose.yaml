@@ -43,6 +43,7 @@ services:
       - "/dev/i2c-1:/dev/i2c-1"
     volumes:
       - ./pca9685_ros2_control/mixed_controller.yaml:/colcon_ws/src/pca9685_ros2_control/pca9685_ros2_control_example/config/mixed_controller.yaml    
+      - ./pca9685_ros2_control/description.urdf.xacro:/colcon_ws/src/pca9685_ros2_control/pca9685_ros2_control_example/description/description.urdf.xacro
     restart: always
     network_mode: "host"
     command: ros2 launch pca9685_ros2_control_example mixed_example.launch.py
@@ -73,8 +74,6 @@ services:
     image: ghcr.io/rosblox/ros-winch-control:humble
     volumes:
       - /home/rock/.ros:/tmp
-    #   - /dev/input:/dev/input
-    # privileged: true
     restart: always
     network_mode: "host"
     command: ros2 launch winch_control noodle.launch.py tendon1_file_path:=/tmp/tendon1_length.yaml tendon2_file_path:=/tmp/tendon2_length.yaml
