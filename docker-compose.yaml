@@ -1,12 +1,12 @@
 version: '3.9'
 
 services:
-  # nginx:
-  #   image: docker.io/library/nginx
-  #   volumes:
-  #     - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
-  #   network_mode: "host"
-  #   restart: always
+  nginx:
+    image: docker.io/library/nginx
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    network_mode: "host"
+    restart: always
 
   # rosblox-studio:
   #   image: ghcr.io/rosblox/studio:latest
@@ -76,7 +76,7 @@ services:
       - /home/rock/.ros:/tmp
     restart: always
     network_mode: "host"
-    command: ros2 launch winch_control noodle.launch.py tendon1_file_path:=/tmp/tendon1_length.yaml tendon2_file_path:=/tmp/tendon2_length.yaml
+    command: ros2 launch winch_control noodle.launch.py
 
   ros-imu-tools:
     image: ghcr.io/rosblox/ros-imu-tools:humble
