@@ -41,29 +41,17 @@ services:
   #   environment:
   #     - ROS_DOMAIN_ID=23
 
-  # ros-pca9685-ros2-control:
-  #   image: ghcr.io/rosblox/ros-pca9685-ros2-control:humble
-  #   devices:
-  #     - "/dev/i2c-1:/dev/i2c-1"
-  #   volumes:
-  #     - ./pca9685_ros2_control/mixed_controller.yaml:/colcon_ws/src/pca9685_ros2_control/pca9685_ros2_control_example/config/mixed_controller.yaml    
-  #     - ./pca9685_ros2_control/description.urdf.xacro:/colcon_ws/src/pca9685_ros2_control/pca9685_ros2_control_example/description/description.urdf.xacro
-  #   restart: always
-  #   network_mode: "host"
-  #   command: ros2 launch pca9685_ros2_control_example mixed_example.launch.py
-  #   environment:
-  #     - ROS_DOMAIN_ID=23
 
-  # ros-joy-linux:
-  #   image: ghcr.io/rosblox/ros-joy-linux:humble
-  #   volumes:
-  #     - /dev/input:/dev/input
-  #   privileged: true
-  #   restart: always
-  #   network_mode: "host"
-  #   command: ros2 run joy_linux joy_linux_node
-  #   environment:
-  #     - ROS_DOMAIN_ID=23
+  ros-joy-linux:
+    image: ghcr.io/rosblox/ros-joy-linux:humble
+    volumes:
+      - /dev/input:/dev/input
+    privileged: true
+    restart: always
+    network_mode: "host"
+    command: ros2 run joy_linux joy_linux_node
+    environment:
+      - ROS_DOMAIN_ID=23
 
   rtklib:
     image: ghcr.io/rosblox/rtklib:latest
@@ -78,26 +66,26 @@ services:
     environment:
       - ROS_DOMAIN_ID=23
 
-  # ros-winch-control:
-  #   image: ghcr.io/rosblox/ros-winch-control:humble
-  #   volumes:
-  #     - /home/rock/.ros:/tmp
-  #   restart: always
-  #   network_mode: "host"
-  #   command: ros2 launch winch_control noodle.launch.py
-  #   environment:
-  #     - ROS_DOMAIN_ID=23
+  ros-winch-control:
+    image: ghcr.io/rosblox/ros-winch-control:humble
+    volumes:
+      - /home/rock/.ros:/tmp
+    restart: always
+    network_mode: "host"
+    command: ros2 launch winch_control noodle.launch.py
+    environment:
+      - ROS_DOMAIN_ID=23
 
-  # ros-imu-tools:
-  #   image: ghcr.io/rosblox/ros-imu-tools:humble
-  #   volumes:
-  #     - ./imu_filter_madgwick/imu_filter.launch.py:/opt/ros/humble/share/imu_filter_madgwick/launch/imu_filter.launch.py
-  #     - ./imu_filter_madgwick/imu_filter.yaml:/opt/ros/humble/share/imu_filter_madgwick/config/imu_filter.yaml
-  #   network_mode: "host"
-  #   restart: always
-  #   command: ros2 launch imu_filter_madgwick imu_filter.launch.py
-  #   environment:
-  #     - ROS_DOMAIN_ID=23
+  ros-imu-tools:
+    image: ghcr.io/rosblox/ros-imu-tools:humble
+    volumes:
+      - ./imu_filter_madgwick/imu_filter.launch.py:/opt/ros/humble/share/imu_filter_madgwick/launch/imu_filter.launch.py
+      - ./imu_filter_madgwick/imu_filter.yaml:/opt/ros/humble/share/imu_filter_madgwick/config/imu_filter.yaml
+    network_mode: "host"
+    restart: always
+    command: ros2 launch imu_filter_madgwick imu_filter.launch.py
+    environment:
+      - ROS_DOMAIN_ID=23
 
   ros-lsm6dsox-lis3mdl:
     image: ghcr.io/rosblox/ros-lsm6dsox-lis3mdl:humble
@@ -109,22 +97,51 @@ services:
     environment:
       - ROS_DOMAIN_ID=23
 
-  # ros-as5048b_1:
-  #   image: ghcr.io/rosblox/ros-as5048b:humble
-  #   restart: always
-  #   devices:
-  #     - /dev/i2c-1:/dev/i2c-1
-  #   network_mode: "host"
-  #   command: ros2 run ros_as5048b ros_as5048b_publisher --ros-args -p i2c_device:=1 -p i2c_address:=0x42
-  #   environment:
-  #     - ROS_DOMAIN_ID=23
+  ros-as5048b_1:
+    image: ghcr.io/rosblox/ros-as5048b:humble
+    restart: always
+    devices:
+      - /dev/i2c-1:/dev/i2c-1
+    network_mode: "host"
+    command: ros2 run ros_as5048b ros_as5048b_publisher --ros-args -p i2c_device:=1 -p i2c_address:=0x42
+    environment:
+      - ROS_DOMAIN_ID=23
+  
+  ros-as5048b_2:
+    image: ghcr.io/rosblox/ros-as5048b:humble
+    restart: always
+    devices:
+      - /dev/i2c-1:/dev/i2c-1
+    network_mode: "host"
+    command: ros2 run ros_as5048b ros_as5048b_publisher --ros-args -p i2c_device:=1 -p i2c_address:=0x44
+    environment:
+      - ROS_DOMAIN_ID=23
 
-  # ros-as5048b_2:
-  #   image: ghcr.io/rosblox/ros-as5048b:humble
-  #   restart: always
-  #   devices:
-  #     - /dev/i2c-1:/dev/i2c-1
-  #   network_mode: "host"
-  #   command: ros2 run ros_as5048b ros_as5048b_publisher --ros-args -p i2c_device:=1 -p i2c_address:=0x44
-  #   environment:
-  #     - ROS_DOMAIN_ID=23
+
+
+  ros-pca9685-ros2-control:
+    image: ghcr.io/rosblox/ros-pca9685-ros2-control:humble
+    devices:
+      - "/dev/i2c-1:/dev/i2c-1"
+    volumes:
+      - ./pca9685_ros2_control/mixed_controller.yaml:/colcon_ws/install/pca9685_ros2_control_example/share/pca9685_ros2_control_example/config/mixed_controller.yaml    
+      - ./pca9685_ros2_control/robot_description:/colcon_ws/install/pca9685_ros2_control_example/share/pca9685_ros2_control_example/urdf
+      - ./pca9685_ros2_control/ros2_control_bringup.launch.py:/colcon_ws/install/pca9685_ros2_control_example/share/pca9685_ros2_control_example/launch/mixed_example.launch.py
+
+    restart: always
+    network_mode: "host"
+    command: ros2 launch pca9685_ros2_control_example mixed_example.launch.py
+    environment:
+      - ROS_DOMAIN_ID=23
+
+
+  ros-robot-localization:
+    image: ghcr.io/rosblox/ros-robot-localization:humble
+    restart: always
+    network_mode: "host"
+    volumes:
+      - ./robot_localization/ukf.yaml:/opt/ros/humble/share/robot_localization/params/ukf.yaml
+      - ./robot_localization/gnss_imu_localization.launch.py:/opt/ros/humble/share/robot_localization/launch/ukf.launch.py
+    command: ros2 launch robot_localization ukf.launch.py
+    environment:
+      - ROS_DOMAIN_ID=23
