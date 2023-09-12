@@ -5,7 +5,7 @@ ukf_node:
 
     use_sim_time: False
 
-    frequency: 15.0
+    frequency: 10.0
     sensor_timeout: 1.0
 
     two_d_mode: true

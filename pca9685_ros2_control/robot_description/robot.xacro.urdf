@@ -11,15 +11,15 @@
       <plugin>pca9685_hardware_interface/Pca9685SystemHardware</plugin>
     </hardware>
     
+    <joint name="rear_left_joint">
+      <command_interface name="velocity"/>
+      <state_interface name="velocity"/>
+    </joint>
     <joint name="front_right_joint">
       <command_interface name="velocity"/>
       <state_interface name="velocity"/>
     </joint>
     <joint name="rear_right_joint">
-      <command_interface name="velocity"/>
-      <state_interface name="velocity"/>
-    </joint>
-    <joint name="rear_left_joint">
       <command_interface name="velocity"/>
       <state_interface name="velocity"/>
     </joint>
@@ -69,10 +69,10 @@
   <joint name="imu_joint" type="fixed">
     <origin xyz="0 0 0.05" rpy="0.5 1.2 -1.17"/>
     <parent link="base_link"/>
-    <child link="ros_lsm6dsox"/>
+    <child link="imu_link"/>
   </joint>
 
-  <link name="ros_lsm6dsox">
+  <link name="imu_link">
     <collision>
       <geometry>
         <sphere radius="0.05"/>
@@ -95,10 +95,10 @@
   <joint name="gnss_joint" type="fixed">
     <origin xyz="0 0 -0.05" rpy="0 0 0"/>
     <parent link="base_link"/>
-    <child link="gnss"/>
+    <child link="gnss_link"/>
   </joint>
 
-  <link name="gnss">
+  <link name="gnss_link">
     <collision>
       <geometry>
         <sphere radius="0.05"/>

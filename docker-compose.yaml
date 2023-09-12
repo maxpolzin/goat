@@ -62,7 +62,7 @@ services:
     image: ghcr.io/rosblox/ros-septentrio-gnss-driver:humble
     restart: always
     network_mode: "host"
-    command: ros2 run septentrio_gnss_driver septentrio_gnss_driver_node --ros-args -p device:=tcp://192.168.60.1:28784 -p polling_period.pvt:=40 -p rtk_settings.ip_server_1.send_gga:="sec1" -p rtk_settings.ip_server_1.port:=6666 -p rtk_settings.ip_server_1.id:="IPS1"
+    command: ros2 run septentrio_gnss_driver septentrio_gnss_driver_node --ros-args -p device:=tcp://192.168.60.1:28784 -p polling_period.pvt:=100 -p frame_id:="gnss_link" -p rtk_settings.ip_server_1.send_gga:="sec1" -p rtk_settings.ip_server_1.port:=6666 -p rtk_settings.ip_server_1.id:="IPS1"
     environment:
       - ROS_DOMAIN_ID=23
 
