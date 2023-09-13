@@ -37,7 +37,6 @@ def generate_launch_description():
             "use_simtime": False,
         }],
         remappings=[
-            ('/odometry/filtered', '/odom'),
             ('/imu', '/imu/data'),
             ('/gps/fix', '/navsatfix'),  
         ]
@@ -50,9 +49,6 @@ def generate_launch_description():
         output='screen',
         respawn=True,
         parameters=[os.path.join(pkg_share, 'params/ukf.yaml')],
-        remappings=[
-            ('/odometry/filtered', '/odom'),
-        ]
         )
 
     return LaunchDescription(
