@@ -68,7 +68,7 @@
 
   <joint name="imu_joint" type="fixed">
     <!-- <origin xyz="0 0 0.05" rpy="-0.2739723 -0.188803 -3.0339028"/> -->
-    <origin xyz="0 0 0.05" rpy="-0.1787338 -0.360856 2.6543997"/>
+    <origin xyz="0 0 0.05" rpy="-0.2517781 -0.0821721 -2.6362795"/>
     <!-- <origin xyz="0 0 0.05" rpy="0 0 0"/> -->
     <origin xyz="0 0 0.05" rpy="0 0 0"/>
     <parent link="base_link"/>
