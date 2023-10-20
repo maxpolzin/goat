@@ -67,9 +67,26 @@
   <xacro:wheel name="rear_left" xyz="-0.35 0.233285 0.0" rpy="0 0 -1.07079566641" direction="-1" />
 
   <joint name="imu_joint" type="fixed">
-    <!-- <origin xyz="0 0 0.05" rpy="-0.2739723 -0.188803 -3.0339028"/> -->
-    <origin xyz="0 0 0.05" rpy="-0.2517781 -0.0821721 -2.6362795"/>
+
+  <!-- 
+  How to determine orientation of IMU in the robot frame:
+    1. Set origin to zero
+        <origin xyz="0 0 0.05" rpy="0 0 0"/>
+    2. Restart model and localization
+        docker compose restart ros-pca9685-ros2-control && sleep 10 && docker compose restart ros-robot-localization
+    3. Get rotation x,y,z,w from tf     frame_id: imu_link,  child_frame_id: odom_from_imu_debug
+    4. 
+      Add MINUS to real part, w
+      Enter as quaternion here: https://www.andre-gaschler.com/rotationconverter/
+      Set Euler angles (radians) to ZYX
+    5. Set origin to obtained angles
+        <origin xyz="0 0 0.05" rpy="-0.33 -0.06 -1.83"/>
+    6. Restart model and localization
+  -->
+
+    <origin xyz="0 0 0.05" rpy="-0.3301406 -0.0643875 -1.83228"/>
     <!-- <origin xyz="0 0 0.05" rpy="0 0 0"/> -->
+
     <origin xyz="0 0 0.05" rpy="0 0 0"/>
     <parent link="base_link"/>
     <child link="imu_link"/>
