@@ -155,6 +155,7 @@ services:
       - ./nav2_bringup/nav2_params.yaml:/opt/ros/humble/share/nav2_bringup/params/nav2_params.yaml
       - ./nav2_bringup/goat_world.yaml:/opt/ros/humble/share/nav2_bringup/maps/goat_world.yaml
       - ./nav2_bringup/goat_world_empty.pgm:/opt/ros/humble/share/nav2_bringup/maps/goat_world_empty.pgm
+      - ./nav2_bringup/navigate_to_pose_w_replanning_rolling_and_recovery.xml:/opt/ros/humble/share/nav2_bt_navigator/behavior_trees/navigate_to_pose_w_replanning_and_recovery.xml
     restart: always
     network_mode: "host"
     command: ros2 launch nav2_bringup nav2_bringup_launch.py
