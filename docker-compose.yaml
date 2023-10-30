@@ -147,7 +147,6 @@ services:
       - ROS_DOMAIN_ID=23
 
 
-
   ros-navigation2:
     image: ghcr.io/rosblox/ros-navigation2:humble
     volumes:

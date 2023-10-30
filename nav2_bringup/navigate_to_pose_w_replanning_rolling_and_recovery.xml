@@ -8,7 +8,7 @@
             <Inverter> <CanRobotRoll server_timeout="10000"/> </Inverter>
 
             <Sequence>
-              <Morph to="circle" server_timeout="10000" />
+              <Morph to="sphere" server_timeout="10000" />
               <Wait wait_duration="150" name="Rolling Down Until I stop." server_timeout="10000" />
             </Sequence>
 
