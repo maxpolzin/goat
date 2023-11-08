@@ -68,14 +68,14 @@ def generate_launch_description():
     nav2_bringup_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(os.path.join(pkg_nav2_bringup, 'launch/navigation_launch.py')),
         launch_arguments={'params_file': params_file, 
-                          'use_composition': 'True'}.items(),
+                          'use_composition': 'False'}.items(),
     )
 
     return LaunchDescription(
         [
             map_server_node,
             map_server_lifecycle_node,
-            nav2_container_node,
+            # nav2_container_node,
             nav2_bringup_launch
         ]
     )
