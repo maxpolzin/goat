@@ -81,10 +81,12 @@
       Set Euler angles (radians) to ZYX
     5. Set origin to obtained angles
         <origin xyz="0 0 0.05" rpy="-0.33 -0.06 -1.83"/>
-    6. Restart model and localization
+    6. Restart model and localization (Repeat Step 2)
+    7. Sanity check: odom_form_imu_debug should be aligned with odom
   -->
+  
 
-    <origin xyz="0 0 0.05" rpy="-0.1841496 -0.045556 -2.7340094"/>
+    <origin xyz="0 0 0.05" rpy="-0.1178264 0.2350093  -2.4975118 "/>
     <!-- <origin xyz="0 0 0.05" rpy="0 0 0"/> -->
 
     <origin xyz="0 0 0.05" rpy="0 0 0"/>
