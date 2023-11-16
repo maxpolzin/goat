@@ -81,12 +81,13 @@
       Set Euler angles (radians) to ZYX
     5. Set origin to obtained angles
         <origin xyz="0 0 0.05" rpy="-0.33 -0.06 -1.83"/>
-    6. Restart model and localization (Repeat Step 2)
+    6. Restart model and localization (Repeat Step 2) and ros-winch-control
     7. Sanity check: odom_form_imu_debug should be aligned with odom
+                     estimated_terrain_mean should be ~0
   -->
   
-
-    <origin xyz="0 0 0.05" rpy="-0.2392142 -0.0462458 -2.0510233"/>
+    <!-- <origin xyz="0 0 0.05" rpy="-0.1748005 -0.0124919 -2.4505736"/> -->
+    <origin xyz="0 0 0.05" rpy="-0.2440991 -0.0970812 -2.2971122"/>
     <!-- <origin xyz="0 0 0.05" rpy="0 0 0"/> -->
 
     <origin xyz="0 0 0.05" rpy="0 0 0"/>
