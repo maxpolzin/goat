@@ -79,11 +79,14 @@ services:
   ros-imu-tools:
     image: ghcr.io/rosblox/ros-imu-tools:humble
     volumes:
-      - ./imu_filter_madgwick/imu_filter.launch.py:/opt/ros/humble/share/imu_filter_madgwick/launch/imu_filter.launch.py
-      - ./imu_filter_madgwick/imu_filter.yaml:/opt/ros/humble/share/imu_filter_madgwick/config/imu_filter.yaml
+      - ./imu_tools/imu_filter_madgwick.launch.py:/colcon_ws/install/imu_filter_madgwick/share/imu_filter_madgwick/launch/imu_filter_madgwick.launch.py
+      - ./imu_tools/imu_filter_madgwick.yaml:/colcon_ws/install/imu_filter_madgwick/share/imu_filter_madgwick/config/imu_filter_madgwick.yaml
+      - ./imu_tools/imu_complementary_filter.launch.py:/colcon_ws/install/imu_complementary_filter/share/imu_complementary_filter/launch/imu_complementary_filter.launch.py
+      - ./imu_tools/imu_complementary_filter.yaml:/colcon_ws/install/imu_complementary_filter/share/imu_complementary_filter/config/imu_complementary_filter.yaml
     network_mode: "host"
     restart: always
-    command: ros2 launch imu_filter_madgwick imu_filter.launch.py
+    # command: ros2 launch imu_filter_madgwick imu_filter_madgwick.launch.py
+    command: ros2 launch imu_complementary_filter imu_complementary_filter.launch.py
     environment:
       - ROS_DOMAIN_ID=23
 
@@ -147,16 +150,16 @@ services:
       - ROS_DOMAIN_ID=23
 
 
-  ros-navigation2:
-    image: ghcr.io/rosblox/ros-navigation2:humble
-    volumes:
-      - ./nav2_bringup/nav2_bringup_launch.py:/opt/ros/humble/share/nav2_bringup/launch/nav2_bringup_launch.py
-      - ./nav2_bringup/nav2_params.yaml:/opt/ros/humble/share/nav2_bringup/params/nav2_params.yaml
-      - ./nav2_bringup/goat_world.yaml:/opt/ros/humble/share/nav2_bringup/maps/goat_world.yaml
-      - ./nav2_bringup/goat_world_empty.pgm:/opt/ros/humble/share/nav2_bringup/maps/goat_world_empty.pgm
-      - ./nav2_bringup/navigate_to_pose_w_replanning_rolling_and_recovery.xml:/opt/ros/humble/share/nav2_bt_navigator/behavior_trees/navigate_to_pose_w_replanning_and_recovery.xml
-    restart: always
-    network_mode: "host"
-    command: ros2 launch nav2_bringup nav2_bringup_launch.py
-    environment:
-      - ROS_DOMAIN_ID=23
+#  ros-navigation2:
+#    image: ghcr.io/rosblox/ros-navigation2:humble
+#    volumes:
+#      - ./nav2_bringup/nav2_bringup_launch.py:/opt/ros/humble/share/nav2_bringup/launch/nav2_bringup_launch.py
+#      - ./nav2_bringup/nav2_params.yaml:/opt/ros/humble/share/nav2_bringup/params/nav2_params.yaml
+#      - ./nav2_bringup/goat_world.yaml:/opt/ros/humble/share/nav2_bringup/maps/goat_world.yaml
+#      - ./nav2_bringup/goat_world_empty.pgm:/opt/ros/humble/share/nav2_bringup/maps/goat_world_empty.pgm
+#      - ./nav2_bringup/navigate_to_pose_w_replanning_rolling_and_recovery.xml:/opt/ros/humble/share/nav2_bt_navigator/behavior_trees/navigate_to_pose_w_replanning_and_recovery.xml
+#    restart: always
+#    network_mode: "host"
+#    command: ros2 launch nav2_bringup nav2_bringup_launch.py
+#    environment:
+#      - ROS_DOMAIN_ID=23
