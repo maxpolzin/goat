@@ -1,12 +1,12 @@
 imu_complementary_filter:
   ros__parameters:
-    publish_tf: true
+    publish_tf: false
     reverse_tf: true
     fixed_frame: "odom_from_imu_debug"
     constant_dt: 0.0
     publish_debug_topics: false
-    gain_acc: 0.1
-    gain_mag: 0.1
+    gain_acc: 0.2
+    gain_mag: 0.2
     bias_alpha: 0.1
     do_bias_estimation: true
     do_adaptive_gain: true
