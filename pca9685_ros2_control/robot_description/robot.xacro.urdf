@@ -70,27 +70,23 @@
 
   <!-- 
   How to determine orientation of IMU in the robot frame:
+    0. Calibrate magnetometer with robot_calibration
     1. Set origin to zero
         <origin xyz="0 0 0.05" rpy="0 0 0"/>
-    2. Restart model and localization
-        docker compose restart ros-pca9685-ros2-control && sleep 10 && docker compose restart ros-robot-localization
-    3. Get rotation x,y,z,w from tf     frame_id: imu_link,  child_frame_id: odom_from_imu_debug
+    2. Restart model
+        docker compose restart ros-pca9685-ros2-control 
+    3. Get rotation x,y,z,w from tf     frame_id: odom,  child_frame_id: base_link
     4. 
-      Add MINUS to real part, w
       Enter as quaternion here: https://www.andre-gaschler.com/rotationconverter/
       Set Euler angles (radians) to ZYX
     5. Set origin to obtained angles
         <origin xyz="0 0 0.05" rpy="-0.33 -0.06 -1.83"/>
-    6. Restart model and localization (Repeat Step 2) and ros-winch-control
-    7. Sanity check: odom_form_imu_debug should be aligned with odom
+    6. Restart model (Repeat Step 2) and ros-winch-control
+    7. Sanity check: odom should be aligned with base_link when facing east
                      estimated_terrain_mean should be ~0
   -->
   
-    <!-- <origin xyz="0 0 0.05" rpy="-0.1748005 -0.0124919 -2.4505736"/> -->
-    <origin xyz="0 0 0.05" rpy="-0.2440991 -0.0970812 -2.2971122"/>
-    <!-- <origin xyz="0 0 0.05" rpy="0 0 0"/> -->
-
-    <origin xyz="0 0 0.05" rpy="0 0 0"/>
+    <origin xyz="0 0 0.05" rpy="-0.324718 -0.0092129 2.9132021"/>
     <parent link="base_link"/>
     <child link="imu_link"/>
   </joint>
