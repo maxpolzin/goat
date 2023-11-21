@@ -92,6 +92,8 @@ services:
 
   ros-lsm6dsox-lis3mdl:
     image: ghcr.io/rosblox/ros-lsm6dsox-lis3mdl:humble
+    volumes:
+      - /home/rock/.ros:/tmp
     devices:
       - "/dev/i2c-3:/dev/i2c-1"
     restart: always
