@@ -27,7 +27,7 @@ def generate_launch_description():
         name='navsat_transform_node',
         output='screen',
         parameters=[{
-            "magnetic_declination_radians": 0.0,
+            "magnetic_declination_radians": 0.05,
             "yaw_offset": 0.0,
             "zero_altitude": False,
             "use_odometry_yaw": False,
@@ -35,6 +35,7 @@ def generate_launch_description():
             "publish_filtered_gps": False,
             "broadcast_utm_transform": False,
             "use_simtime": False,
+            "delay": 5.0,
         }],
         remappings=[
             ('/imu', '/imu/data'),
