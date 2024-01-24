@@ -12,7 +12,7 @@ def generate_launch_description():
 
     pkg_share = get_package_share_directory('robot_localization')
 
-  
+
     map_transform_node = Node(
         package='tf2_ros',
         executable='static_transform_publisher',
@@ -20,7 +20,7 @@ def generate_launch_description():
         output='screen',
         arguments = "--x -1 --y 0 --z 0 --roll 0 --pitch 0 --yaw 0 --frame-id map --child-frame-id odom".split(' '),
         )
-    
+
     navsat_transform_node = Node(
         package='robot_localization',
         executable='navsat_transform_node',
@@ -39,7 +39,7 @@ def generate_launch_description():
         }],
         remappings=[
             ('/imu', '/imu/data'),
-            ('/gps/fix', '/navsatfix'),  
+            ('/gps/fix', '/navsatfix'),
         ]
         )
 

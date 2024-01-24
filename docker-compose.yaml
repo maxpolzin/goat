@@ -8,20 +8,23 @@ services:
     network_mode: "host"
     restart: always
 
-  # rosblox-studio:
-  #   image: ghcr.io/rosblox/studio:latest
-  #   volumes:
-  #     - ./studio/layout.json:/src/layout.json
-  #   ports:
-  #     - 8080:8080
-  #   restart: always
+  rosblox-studio:
+    image: ghcr.io/rosblox/studio:latest
+    volumes:
+      - ./studio/layout.json:/src/layout.json
+    ports:
+      - 8080:8080
+    restart: always
 
-#  ros-rosbridge-suite:
-#    image: ghcr.io/rosblox/ros-rosbridge-suite:humble
-#    ports:
-#      - 9090:9090
-#    restart: always
-#    command: ros2 launch rosbridge_server rosbridge_websocket_launch.xml
+  ros-rosbridge-suite:
+    image: ghcr.io/rosblox/ros-rosbridge-suite:humble
+    ports:
+      - 9090:9090
+    restart: always
+    network_mode: "host"
+    environment:
+      - ROS_DOMAIN_ID=23
+    command: ros2 launch rosbridge_server rosbridge_websocket_launch.xml
 
   ros-ina220:
     image: ghcr.io/rosblox/ros-ina220:humble
@@ -94,8 +97,7 @@ services:
     image: ghcr.io/rosblox/ros-lsm6dsox-lis3mdl:humble
     volumes:
       - /home/rock/.ros:/tmp
-    devices:
-      - "/dev/i2c-3:/dev/i2c-1"
+    privileged: true
     restart: always
     network_mode: "host"
     command: ros2 run ros_lsm6dsox_lis3mdl ros_lsm6dsox_lis3mdl_publisher
@@ -123,7 +125,6 @@ services:
       - ROS_DOMAIN_ID=23
 
 
-
   ros-pca9685-ros2-control:
     image: ghcr.io/rosblox/ros-pca9685-ros2-control:humble
     devices:
@@ -132,7 +133,6 @@ services:
       - ./pca9685_ros2_control/mixed_controller.yaml:/colcon_ws/install/pca9685_ros2_control_example/share/pca9685_ros2_control_example/config/mixed_controller.yaml    
       - ./pca9685_ros2_control/robot_description:/colcon_ws/install/pca9685_ros2_control_example/share/pca9685_ros2_control_example/urdf
       - ./pca9685_ros2_control/ros2_control_bringup.launch.py:/colcon_ws/install/pca9685_ros2_control_example/share/pca9685_ros2_control_example/launch/mixed_example.launch.py
-
     restart: always
     network_mode: "host"
     command: ros2 launch pca9685_ros2_control_example mixed_example.launch.py
@@ -140,16 +140,16 @@ services:
       - ROS_DOMAIN_ID=23
 
 
-  ros-robot-localization:
-    image: ghcr.io/rosblox/ros-robot-localization:humble
-    restart: always
-    network_mode: "host"
-    volumes:
-      - ./robot_localization/ukf.yaml:/opt/ros/humble/share/robot_localization/params/ukf.yaml
-      - ./robot_localization/gnss_imu_localization.launch.py:/opt/ros/humble/share/robot_localization/launch/ukf.launch.py
-    command: ros2 launch robot_localization ukf.launch.py
-    environment:
-      - ROS_DOMAIN_ID=23
+  # ros-robot-localization:
+  #   image: ghcr.io/rosblox/ros-robot-localization:humble
+  #   restart: always
+  #   network_mode: "host"
+  #   volumes:
+  #     - ./robot_localization/ukf.yaml:/opt/ros/humble/share/robot_localization/params/ukf.yaml
+  #     - ./robot_localization/gnss_imu_localization.launch.py:/opt/ros/humble/share/robot_localization/launch/ukf.launch.py
+  #   command: ros2 launch robot_localization ukf.launch.py
+  #   environment:
+  #     - ROS_DOMAIN_ID=23
 
 
 #  ros-navigation2:
