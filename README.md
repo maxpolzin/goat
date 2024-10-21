@@ -17,7 +17,7 @@ All electronics, including sensors, computing, and power, are located in the rob
 - **Actuators**: 4 wheel motors are mounted along the frame for wheeled locomotion and 2 winch motors are mounted to the central payload for reconfiguration.
 
 ## Software
-The robot leverages the **ROSbloX** project, which provides modular building blocks for robotic software development. These ROSbloX modules allow the robot to perform various functions, including locomotion, morphological adaptation, and sensor data collection. 
+The robot leverages the [**ROSbloX** project](https://rosblox.github.io/), which provides modular building blocks for robotic software development. These [ROSbloX modules](https://github.com/rosblox) allow the robot to perform various functions, including locomotion, morphological adaptation, and sensor data collection. 
 This repository contains the configuration files needed to run ROSbloX specifically tailored for the robot's onboard computer. The software enables:
 
 - **Locomotion Control**: Managing the robot's movement through different terrains using [ROS2 Nav2](https://docs.nav2.org/).
@@ -43,5 +43,5 @@ If you use this work, please cite the following paper:
 The software is released under the **BSD** open-source license.
 
 ## Contact
-For questions, feedback, or collaboration, please reach out via **ROSbloX Discussions** or email at **polzin.max@gmail.com**.
+For questions, feedback, or collaboration, please reach out via [**ROSbloX Discussions**](https://github.com/orgs/rosblox/discussions) or email at **polzin.max@gmail.com**.
 
