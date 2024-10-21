@@ -40,7 +40,7 @@ If you use this work, please cite the following paper:
 ```
 
 ## License
-The software is released under the **BSD** open-source license.
+The software is released under a permissive open-source license.
 
 ## Contact
 For questions, feedback, or collaboration, please reach out via [**ROSbloX Discussions**](https://github.com/orgs/rosblox/discussions) or email at **polzin.max@gmail.com**.
