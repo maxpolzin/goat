@@ -47,27 +47,30 @@ services:
 
   ros-joy-linux:
     image: ghcr.io/rosblox/ros-joy-linux:humble
+    restart: always
+    network_mode: "host"
     volumes:
       - /dev/input:/dev/input
     privileged: true
-    restart: always
-    network_mode: "host"
-    command: ros2 run joy_linux joy_linux_node
+    ipc: host
+    pid: host
     environment:
+      - UID=${HOST_UID}
       - ROS_DOMAIN_ID=23
+    command: su - ros --whitelist-environment="ROS_DOMAIN_ID" /run.sh
 
-  rtklib:
-    image: ghcr.io/rosblox/rtklib:latest
-    restart: always
-    command: str2str -in ntrip://$NTRIP_USER:$NTRIP_PASSWORD@www.swipos.ch:2101/MSM_GISGEO_LV95LHN95 -b 1 -out tcpcli://192.168.60.1:6666
+  # rtklib:
+  #   image: ghcr.io/rosblox/rtklib:latest
+  #   restart: always
+  #   command: str2str -in ntrip://$NTRIP_USER:$NTRIP_PASSWORD@www.swipos.ch:2101/MSM_GISGEO_LV95LHN95 -b 1 -out tcpcli://192.168.60.1:6666
 
-  ros-septentrio-gnss-driver:
-    image: ghcr.io/rosblox/ros-septentrio-gnss-driver:humble
-    restart: always
-    network_mode: "host"
-    command: ros2 run septentrio_gnss_driver septentrio_gnss_driver_node --ros-args -p device:=tcp://192.168.60.1:28784 -p polling_period.pvt:=100 -p frame_id:="gnss_link" -p rtk_settings.ip_server_1.send_gga:="sec1" -p rtk_settings.ip_server_1.port:=6666 -p rtk_settings.ip_server_1.id:="IPS1"
-    environment:
-      - ROS_DOMAIN_ID=23
+  # ros-septentrio-gnss-driver:
+  #   image: ghcr.io/rosblox/ros-septentrio-gnss-driver:humble
+  #   restart: always
+  #   network_mode: "host"
+  #   command: ros2 run septentrio_gnss_driver septentrio_gnss_driver_node --ros-args -p device:=tcp://192.168.60.1:28784 -p polling_period.pvt:=100 -p frame_id:="gnss_link" -p rtk_settings.ip_server_1.send_gga:="sec1" -p rtk_settings.ip_server_1.port:=6666 -p rtk_settings.ip_server_1.id:="IPS1"
+  #   environment:
+  #     - ROS_DOMAIN_ID=23
 
   ros-winch-control:
     image: ghcr.io/rosblox/ros-winch-control:humble
@@ -78,6 +81,21 @@ services:
     command: ros2 launch winch_control noodle.launch.py
     environment:
       - ROS_DOMAIN_ID=23
+
+  ros-goat-controller:
+    image: ghcr.io/rosblox/ros-goat-controller:humble
+    restart: always
+    network_mode: "host"
+    ipc: host
+    pid: host
+    devices:
+      - /dev/ttyUSB0
+    privileged: true
+    environment:
+      - UID=${HOST_UID}
+      - ROS_DOMAIN_ID=23
+    command: su - ros --whitelist-environment=ROS_DOMAIN_ID /run.sh
+
 
   ros-imu-tools:
     image: ghcr.io/rosblox/ros-imu-tools:humble
