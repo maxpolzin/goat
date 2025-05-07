@@ -1,0 +1,6 @@
+#Example QoS override to log all messages
+
+/imu/data:  
+  durability: volatile
+  history: keep_all
+  reliability: reliable

@@ -1,12 +1,21 @@
 {
   "configById": {
-    "Plot!3qf8yur": {
-      "title": "Temperature [C]",
+    "Plot!34b6enr": {
       "paths": [
         {
-          "value": "/cpu_temperature.temperature",
-          "enabled": true,
-          "timestampMethod": "receiveTime"
+          "timestampMethod": "receiveTime",
+          "value": "/imu/data.orientation.x",
+          "enabled": true
+        },
+        {
+          "timestampMethod": "receiveTime",
+          "value": "/imu/data.orientation.y",
+          "enabled": true
+        },
+        {
+          "timestampMethod": "receiveTime",
+          "value": "/imu/data.orientation.z",
+          "enabled": true
         }
       ],
       "showXAxisLabels": true,
@@ -17,15 +26,14 @@
       "isSynced": true,
       "xAxisVal": "timestamp",
       "sidebarDimension": 240,
-      "followingViewWidth": 30
+      "followingViewWidth": 60
     },
-    "Plot!1e6t9tj": {
-      "title": "Current [A]",
+    "Plot!4i64mql": {
       "paths": [
         {
+          "timestampMethod": "receiveTime",
           "value": "/ina220/data.current",
-          "enabled": true,
-          "timestampMethod": "receiveTime"
+          "enabled": true
         }
       ],
       "showXAxisLabels": true,
@@ -36,26 +44,7 @@
       "isSynced": true,
       "xAxisVal": "timestamp",
       "sidebarDimension": 240,
-      "followingViewWidth": 30
-    },
-    "Plot!2eadu4j": {
-      "title": "Battery Voltage [V]",
-      "paths": [
-        {
-          "value": "/ina220/data.voltage",
-          "enabled": true,
-          "timestampMethod": "receiveTime"
-        }
-      ],
-      "showXAxisLabels": true,
-      "showYAxisLabels": true,
-      "showLegend": false,
-      "legendDisplay": "floating",
-      "showPlotValuesInLegend": false,
-      "isSynced": true,
-      "xAxisVal": "timestamp",
-      "sidebarDimension": 240,
-      "followingViewWidth": 30
+      "followingViewWidth": 60
     }
   },
   "globalVariables": {},
@@ -66,13 +55,8 @@
     "messageOrder": "receiveTime"
   },
   "layout": {
-    "first": {
-      "first": "Plot!3qf8yur",
-      "second": "Plot!1e6t9tj",
-      "direction": "column"
-    },
-    "second": "Plot!2eadu4j",
-    "direction": "column",
-    "splitPercentage": 64.35424354243543
+    "first": "Plot!34b6enr",
+    "second": "Plot!4i64mql",
+    "direction": "column"
   }
 }
