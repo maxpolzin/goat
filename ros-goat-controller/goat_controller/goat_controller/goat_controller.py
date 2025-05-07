@@ -19,19 +19,19 @@ class GoatController(Node):
 
         self.get_logger().info(f"Subscribed to {self.joystick_topic}")
 
-        self.servo = Dynamixel(ID=[0, 1, 2, 3], descriptive_device_name="DYNAMIXEL_GOAT", series_name=["xw", "xw", "xw", "xw"], baudrate=1000000, port_name="/dev/ttyUSB0")
+        self.servo = Dynamixel(ID=[11, 12, 13, 14], descriptive_device_name="DYNAMIXEL_GOAT", series_name=["xw", "xw", "xw", "xw"], baudrate=1000000, port_name="/dev/ttyUSB0")
         self.servo.begin_communication()
         self.servo.set_operating_mode("velocity", ID="all")
 
-        self.ID_FRONT_LEFT = 2
-        self.ID_BACK_LEFT = 0
-        self.ID_FRONT_RIGHT = 3 
-        self.ID_BACK_RIGHT = 1
+        self.ID_FRONT_LEFT = 11
+        self.ID_BACK_LEFT = 12
+        self.ID_FRONT_RIGHT = 14 
+        self.ID_BACK_RIGHT = 13
 
-        self.DIR_FRONT_LEFT = 1
-        self.DIR_BACK_LEFT = 1
-        self.DIR_FRONT_RIGHT = -1 
-        self.DIR_BACK_RIGHT = -1
+        self.DIR_FRONT_LEFT = -1
+        self.DIR_BACK_LEFT = -1
+        self.DIR_FRONT_RIGHT = 1
+        self.DIR_BACK_RIGHT = 1
 
 
     def joystick_callback(self, msg: Joy):
