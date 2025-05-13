@@ -51,19 +51,6 @@ def generate_launch_description():
         arguments=["joint_group_velocity_controller", "--controller-manager", "/controller_manager"],
     )
 
-    diff_drive_controller_spawner = Node(
-        package="controller_manager",
-        executable="spawner",
-        arguments=["diff_drive_controller", "--controller-manager", "/controller_manager"],
-    )
-
-    # joint_state_broadcaster_spawner = Node(
-    #     package="controller_manager",
-    #     executable="spawner",
-    #     arguments=["joint_state_broadcaster", "--controller-manager", "/controller_manager"],
-    # )
-
-
     robot_state_publisher_node = Node(
         package='robot_state_publisher',
         executable='robot_state_publisher',
@@ -74,8 +61,6 @@ def generate_launch_description():
     nodes = [
         control_node,
         joint_group_velocity_controller_spawner,
-        diff_drive_controller_spawner,
-        # joint_state_broadcaster_spawner,
         robot_state_publisher_node
     ]
 

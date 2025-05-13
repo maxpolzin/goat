@@ -245,9 +245,9 @@ services:
     devices:
       - "/dev/i2c-1:/dev/i2c-1"
     volumes:
-      - ./pca9685_ros2_control/mixed_controller.yaml:/colcon_ws/install/pca9685_ros2_control_example/share/pca9685_ros2_control_example/config/mixed_controller.yaml    
+      - ./pca9685_ros2_control/winch_controller.yaml:/colcon_ws/install/pca9685_ros2_control_example/share/pca9685_ros2_control_example/config/joint_group_velocity_controller.yaml  
       - ./pca9685_ros2_control/robot_description:/colcon_ws/install/pca9685_ros2_control_example/share/pca9685_ros2_control_example/urdf
-      - ./pca9685_ros2_control/ros2_control_bringup.launch.py:/colcon_ws/install/pca9685_ros2_control_example/share/pca9685_ros2_control_example/launch/mixed_example.launch.py
+      - ./pca9685_ros2_control/ros2_control_bringup.launch.py:/colcon_ws/install/pca9685_ros2_control_example/share/pca9685_ros2_control_example/launch/joint_group_velocity_example.launch.py
     # restart: always
     # network_mode: "bridge"
     # command: ros2 launch pca9685_ros2_control_example mixed_example.launch.py
