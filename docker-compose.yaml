@@ -32,11 +32,11 @@ services:
     image: ghcr.io/rosblox/ros-joy-linux:humble
     restart: always
     network_mode: "host"
+    ipc: host
+    pid: host
     volumes:
       - /dev/input:/dev/input
     privileged: true
-    ipc: host
-    pid: host
     environment:
       - UID=${HOST_UID}
       - ROS_DOMAIN_ID
@@ -87,19 +87,6 @@ services:
       - ./ros-bag-recorder/qos_override.yaml:/qos_override.yaml
     command: su - ros --whitelist-environment=ROS_DOMAIN_ID  -c 'source /opt/ros/humble/setup.bash; cd /bags; ros2 bag record --max-cache-size 10000000 -s mcap  --qos-profile-overrides-path /qos_override.yaml  --max-bag-size 100000000 /imu/data'
 
-
-
-  # Old-style container without shared memory publishing (because commands run as root user with id=0 not ros=1000)
-  # ros-ina220:
-  #   image: ghcr.io/rosblox/ros-ina220:humble
-  #   devices:
-  #     - "/dev/i2c-4:/dev/i2c-1"
-  #   restart: always
-  #   network_mode: "bridge"
-  #   command: ros2 run ros_ina220 ros_ina220_publisher
-  #   environment:
-  #     - ROS_DOMAIN_ID
-
   ros-ina220:
     image: ghcr.io/rosblox/ros-ina220:humble
     restart: always
@@ -113,18 +100,7 @@ services:
     devices:
       - "/dev/i2c-4:/dev/i2c-1"
 
-
-
   ros-winch-control:
-    # image: ghcr.io/rosblox/ros-winch-control:humble
-    # volumes:
-    #   - /home/rock/.ros:/tmp
-    # restart: always
-    # network_mode: "bridge"
-    # command: ros2 launch winch_control noodle.launch.py
-    # environment:
-    #   - ROS_DOMAIN_ID
-
     image: ghcr.io/rosblox/ros-winch-control:humble
     restart: always
     network_mode: "host"
@@ -136,21 +112,6 @@ services:
     command: su - ros --whitelist-environment="ROS_DOMAIN_ID" /run.sh
     volumes:
       - /home/rock/.ros:/tmp
-
-
-  # ros-imu-tools:
-  #   image: ghcr.io/rosblox/ros-imu-tools:humble
-  #   volumes:
-  #     - ./imu_tools/imu_filter_madgwick.launch.py:/colcon_ws/install/imu_filter_madgwick/share/imu_filter_madgwick/launch/imu_filter_madgwick.launch.py
-  #     - ./imu_tools/imu_filter_madgwick.yaml:/colcon_ws/install/imu_filter_madgwick/share/imu_filter_madgwick/config/imu_filter_madgwick.yaml
-  #     - ./imu_tools/imu_complementary_filter.launch.py:/colcon_ws/install/imu_complementary_filter/share/imu_complementary_filter/launch/imu_complementary_filter.launch.py
-  #     - ./imu_tools/imu_complementary_filter.yaml:/colcon_ws/install/imu_complementary_filter/share/imu_complementary_filter/config/imu_complementary_filter.yaml
-  #   network_mode: "bridge"
-  #   restart: always
-  #   # command: ros2 launch imu_filter_madgwick imu_filter_madgwick.launch.py
-  #   command: ros2 launch imu_complementary_filter imu_complementary_filter.launch.py
-  #   environment:
-  #     - ROS_DOMAIN_ID
 
   ros-imu-tools:
     image: ghcr.io/rosblox/ros-imu-tools:humble
@@ -168,8 +129,6 @@ services:
       - ./imu_tools/imu_complementary_filter.launch.py:/colcon_ws/install/imu_complementary_filter/share/imu_complementary_filter/launch/imu_complementary_filter.launch.py
       - ./imu_tools/imu_complementary_filter.yaml:/colcon_ws/install/imu_complementary_filter/share/imu_complementary_filter/config/imu_complementary_filter.yaml
  
-
-
   ros-lsm6dsox-lis3mdl:
     image: ghcr.io/rosblox/ros-lsm6dsox-lis3mdl:humble
     restart: always
@@ -179,20 +138,10 @@ services:
     environment:
       - UID=${HOST_UID}
       - ROS_DOMAIN_ID
-    command: su - ros --whitelist-environment="ROS_DOMAIN_ID" /run.sh
-
     volumes:
-      - /home/rock/.ros:/tm`p
-    # privileged: true ???
-
-    # restart: always
-    # network_mode: "bridge"
-    # command: ros2 run ros_lsm6dsox_lis3mdl ros_lsm6dsox_lis3mdl_publisher
-    # environment:
-    #   - ROS_DOMAIN_ID
-
-
-
+      - /home/rock/.ros:/tmp
+    privileged: true
+    command: su - ros --whitelist-environment="ROS_DOMAIN_ID" /run.sh
 
   ros-as5048b_1:
     image: ghcr.io/rosblox/ros-as5048b:humble
@@ -206,15 +155,9 @@ services:
       - I2C_DEVICE=1
       - I2C_ADDRESS=0x42
     command: su - ros --whitelist-environment="ROS_DOMAIN_ID,I2C_DEVICE,I2C_ADDRESS" /run.sh
-    # restart: always
     devices:
       - /dev/i2c-1:/dev/i2c-1
-    
-    # network_mode: "bridge"
-    # command: ros2 run ros_as5048b ros_as5048b_publisher --ros-args -p i2c_device:=1 -p i2c_address:=0x42
-    # environment:
-      # - ROS_DOMAIN_ID
-  
+
   ros-as5048b_2:
     image: ghcr.io/rosblox/ros-as5048b:humble
     restart: always
@@ -227,11 +170,8 @@ services:
       - I2C_DEVICE=1
       - I2C_ADDRESS=0x44
     command: su - ros --whitelist-environment="ROS_DOMAIN_ID,I2C_DEVICE,I2C_ADDRESS" /run.sh
-    # restart: always
     devices:
       - /dev/i2c-1:/dev/i2c-1
-
-
 
   ros-pca9685-ros2-control:
     image: ghcr.io/rosblox/ros-pca9685-ros2-control:humble
@@ -243,9 +183,8 @@ services:
       - UID=${HOST_UID}
       - ROS_DOMAIN_ID
     devices:
-      - "/dev/i2c-1:/dev/i2c-1"
+      - /dev/i2c-1:/dev/i2c-1
     command: su - ros --whitelist-environment="ROS_DOMAIN_ID" /run.sh
-
 
 
 
